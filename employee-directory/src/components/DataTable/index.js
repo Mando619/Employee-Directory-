@@ -10,14 +10,16 @@ function DataTable(props) {
   return (
     <div className="container">
     <table className="table-data">
+      <tbody>
       <tr>
         <th scope="col">Image</th>
-        <th scope="col">Name</th>
+        <th scope="col" onClick={props.sortName} style={{cursor:'pointer'}}>Name</th>
         <th scope="col">Phone</th>
         <th scope="col">Email</th>
         <th scope="col">D.O.B</th>
       </tr>
-      <tbody className="dataTable">
+      </tbody>
+     <tbody className="dataTable">
       {props.results.map(result => (
         <tr className="table" 
         key={result.login.uuid}>

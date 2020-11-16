@@ -9,8 +9,8 @@ class SearchResultContainer extends Component  {
   state = {
     search: "",
     results: [],
-    order:"",
-    employees:[]
+    employees:[],
+    order:""
   };
 
 //  When this component mounts, search the Employee API for pictures of kittens
@@ -21,48 +21,54 @@ class SearchResultContainer extends Component  {
   searchEmployees = query => {
     API.search(query)
     .then(res => {
-      this.setState({ results: res.data.results })
-      this.setState({ employees: res.data.results})
+      this.setState({ ...this.state,results: res.data.results, employees: res.data.results })
+     // this.setState({ ...this.state,employees: res.data.results})
     })
       .catch(err => console.log(err));
+      console.log(this.state)
   };
 
   handleInputChange = event => {
     // props.employees.filter(employeeRRecord)
-    const employees = this.state.employees;
-    const search = event.target.search;
+   const employees = this.state.employees;
+   const value = event.target.value;
+   const results = employees.filter(employee => employee.name.first.toLowerCase().indexOf(value.toLowerCase()) > -1)
+   this.setState({
+     results
+   })
+  };
+   // const search = event.target.search;
+    // const value = event.target.value;
+    // this.setState({
+    //   search: value
 
-    const results = employees.filter(employee => 
-    employee.name.first.toLowerCase().indexOf(search.toLowerCase()) > -1)
+  employeeSort = () => {
+    const filter = this.state.results;
 
-     this.setState({
-       results
-
-     })
-    };
+    if (this.state.order === "ascend") {
+      const sortThrough = filter.sort((name1, name2) => (name1.name.first > name2.name.first) ? 1 : -1)
+      
+      this.setState({ 
+        results: sortThrough,
+        order: "descend"
+      })
+    } else {
+      const sortThrough = filter.sort((name1, name2) => (name1.name.first > name2.name.first) ? 1 : -1)
+      
+      this.setState({ 
+        resultes: sortThrough,
+        order: "asc"
+      })
+    }
+      };
+    
   
-   employeeSort = () => {
-     const employeeFilter = this.state.results;
-     if (this.state.order === "asc") {
-      const sorted = employeeFilter.sort((sort1, sort2) => (sort1.name.first > sort2.name.first) ? 1 : -1)
-      console.log(sorted);
-      this.setState({
-          results: sorted,
-          order: "desc"
-      })
-  } else {
-      const sorted = employeeFilter.sort((sort1, sort2) => (sort1.name.first > sort2.name.first) ? -1 : 1)
-      console.log(sorted);
-      this.setState({
-          results: sorted,
-          order: "asc"
-      })
-  }
-};
+  
+
   // When the form is submitted, search the Giphy API for `this.state.search`
   handleFormSubmit = event => {
     event.preventDefault();
-     this.searchEmployees(this.state.search);
+    this.searchEmployees(this.state.search);
   };
 
   render() {
@@ -74,8 +80,9 @@ class SearchResultContainer extends Component  {
           handleFormSubmit={this.handleFormSubmit}
           handleInputChange={this.handleInputChange} 
          />
+         {console.log(this.state.results)}
         <DataTable results={this.state.results} 
-         employeeSort= {this.employeeSort}
+        employeeSort={this.employeeSort}
         />
         
       </div>
