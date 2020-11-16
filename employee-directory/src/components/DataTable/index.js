@@ -2,6 +2,10 @@ import React from "react";
 import "./style.css";
 
 // changed normal to scope=col to specify header to row.
+
+
+
+
 function DataTable(props) {
   return (
     <div className="container">
@@ -13,8 +17,10 @@ function DataTable(props) {
         <th scope="col">Email</th>
         <th scope="col">D.O.B</th>
       </tr>
+      <tbody className="dataTable">
       {props.results.map(result => (
-        <tr key={result.login.uuid}>
+        <tr className="table" 
+        key={result.login.uuid}>
           <td>
             <img alt={result.name.first}
               className="img-fluid"
@@ -31,10 +37,11 @@ function DataTable(props) {
             {result.email}
           </td>
           <td>
-            {result.dob.date}
+            {result.dob.date.slice(0,10)}
           </td>
         </tr>
       ))}
+      </tbody>
     </table>
     </div>
 

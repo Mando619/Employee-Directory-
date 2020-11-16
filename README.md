@@ -5,12 +5,12 @@
 
 ## Description
 
-
+This applicaton was created using React.js framework. 
 
 ## DEMO 
 
 
-[Link to deployed application](https://mighty-badlands-72894.herokuapp.com/)
+[Link to deployed application](https://employee-directory-sepia.vercel.app/)
 
 
 ## Installation 
