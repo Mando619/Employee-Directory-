@@ -68,7 +68,7 @@ class SearchResultContainer extends Component  {
   // When the form is submitted, search the Giphy API for `this.state.search`
   handleFormSubmit = event => {
     event.preventDefault();
-    //this.searchEmployees(this.state.search);
+    this.searchEmployees(this.state.search);
   };
 
   render() {
@@ -76,7 +76,7 @@ class SearchResultContainer extends Component  {
       <div>
         <Header/>
          <SearchForm
-          search={this.state.search}
+          value={this.state.search}
           handleFormSubmit={this.handleFormSubmit}
           handleInputChange={this.handleInputChange} 
          />
